@@ -33,7 +33,7 @@ include(GNUInstallDirs)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(CMAKE_CXX_STANDARD 11)
 
-option(ENABLE_RTTI "Enables RTTI" OFF)
+option(SPIRV_ENABLE_RTTI "Enables RTTI" OFF)
 option(SPIRV_ALLOW_TIMERS "Allow timers via clock_gettime on supported platforms" ON)
 
 if("${CMAKE_SYSTEM_NAME}" STREQUAL "Linux")
@@ -164,7 +164,7 @@ endif()
 #   Note this target provides no API stability guarantees.
 #
 # Ideally, all of these will go away - see https://github.com/KhronosGroup/SPIRV-Tools/issues/3909.
-option(ENABLE_EXCEPTIONS_ON_MSVC "Build SPIRV-TOOLS with c++ exceptions enabled in MSVC" ON)
+option(SPIRV_TOOLS_ENABLE_EXCEPTIONS_ON_MSVC "Build SPIRV-TOOLS with c++ exceptions enabled in MSVC" ON)
 option(SPIRV_TOOLS_BUILD_STATIC "Build ${SPIRV_TOOLS}-static target. ${SPIRV_TOOLS} will alias to ${SPIRV_TOOLS}-static or ${SPIRV_TOOLS}-shared based on BUILD_SHARED_LIBS" ON)
 if(SPIRV_TOOLS_BUILD_STATIC)
   set(SPIRV_TOOLS_FULL_VISIBILITY ${SPIRV_TOOLS}-static)
@@ -189,7 +189,7 @@ function(spvtools_default_compile_options TARGET)
       -Wall -Wextra -Wno-long-long -Wshadow -Wundef -Wconversion
       -Wno-sign-conversion)
 
-    if(NOT ENABLE_RTTI)
+    if(NOT SPIRV_ENABLE_RTTI)
         add_compile_options(-fno-rtti)
     endif()
     # For good call stacks in profiles, keep the frame pointers.
@@ -216,7 +216,7 @@ function(spvtools_default_compile_options TARGET)
   if (MSVC)
     # Specify /EHs for exception handling. This makes using SPIRV-Tools as
     # dependencies in other projects easier.
-    if(ENABLE_EXCEPTIONS_ON_MSVC)
+    if(SPIRV_TOOLS_ENABLE_EXCEPTIONS_ON_MSVC)
       target_compile_options(${TARGET} PRIVATE /EHs)
     endif()
   endif()
