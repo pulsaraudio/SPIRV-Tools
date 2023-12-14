@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-cmake_minimum_required(VERSION 2.8.12)
+cmake_minimum_required(VERSION 3.27.0)  # for policy CMP0148
 if (POLICY CMP0048)
   cmake_policy(SET CMP0048 NEW)
 endif()
@@ -22,6 +22,7 @@ if (POLICY CMP0054)
   # https://cmake.org/cmake/help/v3.1/policy/CMP0054.html
   cmake_policy(SET CMP0054 NEW)
 endif()
+
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 project(spirv-tools)
@@ -247,7 +248,7 @@ if(NOT COMMAND find_host_program)
 endif()
 
 # Tests require Python3
-find_host_package(PythonInterp 3 REQUIRED)
+find_host_package(Python3 COMPONENTS Interpreter REQUIRED)
 
 # Check for symbol exports on Linux.
 # At the moment, this check will fail on the OSX build machines for the Android NDK.
