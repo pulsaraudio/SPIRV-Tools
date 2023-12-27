@@ -249,6 +249,8 @@ endif()
 
 # Tests require Python3
 find_host_package(Python3 COMPONENTS Interpreter REQUIRED)
+set(PYTHONINTERP_FOUND ${Python3_Interpreter_FOUND} CACHE INTERNAL "Python Interpreter found")
+set(PYTHON_EXECUTABLE ${Python3_EXECUTABLE} CACHE INTERNAL "Python Executable")
 
 # Check for symbol exports on Linux.
 # At the moment, this check will fail on the OSX build machines for the Android NDK.
